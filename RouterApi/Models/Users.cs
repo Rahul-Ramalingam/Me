@@ -9,7 +9,8 @@ namespace RouterApi.Models
 {
     public class Users
     {
-        public int Id { get; set; }
+        [Key]
+        public int UserId { get; set; }
         [Required]
         [Index(IsUnique = true)]
         public string UserName { get; set; }

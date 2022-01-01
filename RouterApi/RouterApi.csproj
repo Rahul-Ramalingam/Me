@@ -163,21 +163,21 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MainTasksController.cs" />
+    <Compile Include="Controllers\SubTasksController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="DataService\DataServices.cs" />
     <Compile Include="Data\RouterApiContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202112311437478_Initial.cs" />
-    <Compile Include="Migrations\202112311437478_Initial.designer.cs">
-      <DependentUpon>202112311437478_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202201010605315_unique constraint.cs" />
-    <Compile Include="Migrations\202201010605315_unique constraint.designer.cs">
-      <DependentUpon>202201010605315_unique constraint.cs</DependentUpon>
+    <Compile Include="Migrations\202201011444221_initial.cs" />
+    <Compile Include="Migrations\202201011444221_initial.designer.cs">
+      <DependentUpon>202201011444221_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\MainTasks.cs" />
+    <Compile Include="DTO\ResponseBody.cs" />
     <Compile Include="Models\SubTasks.cs" />
     <Compile Include="Models\Users.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -266,11 +266,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202112311437478_Initial.resx">
-      <DependentUpon>202112311437478_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202201010605315_unique constraint.resx">
-      <DependentUpon>202201010605315_unique constraint.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202201011444221_initial.resx">
+      <DependentUpon>202201011444221_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

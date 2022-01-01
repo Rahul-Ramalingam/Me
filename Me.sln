@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RouterApi", "RouterApi\RouterApi.csproj", "{A97DE062-F42E-4D55-8C00-742724A83F0C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeApi", "MeApi\MeApi.csproj", "{A6B5FA37-0280-4931-BFB5-0C79F8F5168F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A97DE062-F42E-4D55-8C00-742724A83F0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A97DE062-F42E-4D55-8C00-742724A83F0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A97DE062-F42E-4D55-8C00-742724A83F0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A97DE062-F42E-4D55-8C00-742724A83F0C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6B5FA37-0280-4931-BFB5-0C79F8F5168F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6B5FA37-0280-4931-BFB5-0C79F8F5168F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6B5FA37-0280-4931-BFB5-0C79F8F5168F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6B5FA37-0280-4931-BFB5-0C79F8F5168F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

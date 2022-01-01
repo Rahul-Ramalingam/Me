@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -8,13 +9,17 @@ namespace RouterApi.Models
 {
     public class SubTasks
     {
-        public int Id { get; set; }
+        [Key]
+        public int SubTaskId { get; set; }
         [Required]
         public string SubTaskName { get; set; }
         public string SubTaskDescription { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
-        public int MainTaskId { get; set; } //Foreign Key
-        public MainTasks MainTasks { get; set; } //Navigation Property
+        //Foreign Key
+        [Display(Name = "MainTaskId")]
+        public virtual int MainTaskId { get; set; }
+        [ForeignKey("MainTaskId")]
+        public virtual MainTasks MainTasks { get; set; }
     }
 }

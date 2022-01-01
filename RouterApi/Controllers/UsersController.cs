@@ -98,7 +98,7 @@ namespace RouterApi.Controllers
             }
             catch (DbUpdateConcurrencyException e)
             {
-                if (!UsersExists(users.Id))
+                if (!UsersExists(users.UserId))
                 {
                     return NotFound();
                 }
@@ -127,12 +127,7 @@ namespace RouterApi.Controllers
             return Ok(users);
         }
 
-        [Route("api/Users/{userId:int}/MainTasks")]
-        [HttpGet]
-        public IEnumerable<MainTasks> GetMainTasks(int userId) 
-        { 
-            return db.MainTasks.Include(mt => mt.Users).Where(mt => mt.UserId == userId).ToList(); 
-        }
+
 
         [Route("api/Users/MainTasks/{mainTaskId:int}/SubTasks")]
         [HttpGet]
@@ -152,7 +147,7 @@ namespace RouterApi.Controllers
 
         private bool UsersExists(int id)
         {
-            return db.Users.Count(e => e.Id == id) > 0;
+            return db.Users.Count(e => e.UserId == id) > 0;
         }
     }
 }
