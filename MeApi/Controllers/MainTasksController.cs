@@ -38,6 +38,18 @@ namespace MeApi.Controllers
             return CreatedAtRoute("addMainTask", new { V = response.Id = task.MainTaskId }, response);
         }
 
+        [Route("api/tasks/{mainTaskId:int}/editTask", Name = "updateMainTask")]
+        [HttpPut]
+        public async Task<IHttpActionResult> EditMainTask(int mainTaskId, MainTasks task)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var response = await _dataService.EditMainTask(mainTaskId, task);
+            return CreatedAtRoute("updateMainTask", new { V = response.Id = task.MainTaskId }, response);
+        }
+
         [Route("api/tasks/deleteMainTask/{mainTaskId:int}")]
         [HttpDelete]
         public async Task<IHttpActionResult> DeleteMainTask(int mainTaskId)

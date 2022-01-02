@@ -30,7 +30,8 @@ namespace MeApi.DataService
                     return new ResponseBody()
                     {
                         Id = task.MainTaskId,
-                        Status = 200
+                        Status = 200,
+                        Message ="Successful" 
                     };
                 }
                 else
@@ -54,6 +55,48 @@ namespace MeApi.DataService
             }
         }
 
+        public async Task<ResponseBody> EditMainTask(int mainTaskId, MainTasks task)
+        {
+            try
+            {
+                if(mainTaskId != task.MainTaskId)
+                {
+                    return new ResponseBody()
+                    {
+                        Id = task.MainTaskId,
+                        Status = 403,
+                        Message = "Invalid TaskId"
+                    };
+                }
+                db.Entry(task).State = EntityState.Modified;
+                await db.SaveChangesAsync();
+                return new ResponseBody()
+                {
+                    Id = task.MainTaskId,
+                    Status = 200,
+                    Message = "Succeessful"
+                };
+            }
+            catch(Exception ex)
+            {
+                if (!MainTasksExists(task.UserId))
+                {
+                    return new ResponseBody()
+                    {
+                        Id = task.MainTaskId,
+                        Status = 404,
+                        Message = "Main Task Not Found"
+                    };
+                }
+                return new ResponseBody()
+                {
+                    Id = task.MainTaskId,
+                    Status = 403,
+                    Message = ex.Message
+                };
+            }
+        }
+
         public async Task<ResponseBody> DeleteMainTask(int mainTaskId)
         {
             try
@@ -70,7 +113,9 @@ namespace MeApi.DataService
                 await db.SaveChangesAsync();
                 return new ResponseBody()
                 {
-                    Status = 200
+                    Id = mainTaskId,
+                    Status = 200,
+                    Message = "Successful"
                 };
             }
             catch(Exception ex)

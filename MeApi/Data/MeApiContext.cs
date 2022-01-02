@@ -19,10 +19,10 @@ namespace MeApi.Data
         {
         }
 
-        public System.Data.Entity.DbSet<MeApi.Models.Users> Users { get; set; }
+        public DbSet<Models.Users> Users { get; set; }
 
-        public System.Data.Entity.DbSet<MeApi.Models.MainTasks> MainTasks { get; set; }
+        public DbSet<Models.MainTasks> MainTasks { get; set; }
 
-        public System.Data.Entity.DbSet<MeApi.Models.SubTasks> SubTasks { get; set; }
+        public DbSet<Models.SubTasks> SubTasks { get; set; }
     }
 }
