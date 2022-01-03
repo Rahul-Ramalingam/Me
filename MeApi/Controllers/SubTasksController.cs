@@ -10,111 +10,66 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using MeApi.Data;
+using MeApi.DataService;
 using MeApi.Models;
 
 namespace MeApi.Controllers
 {
     public class SubTasksController : ApiController
     {
-        private MeApiContext db = new MeApiContext();
+        private DataServices _dataService = new DataServices();
 
-        // GET: api/SubTasks
-        public IQueryable<SubTasks> GetSubTasks()
+        [Route("api/tasks/MainTasks/{mainTaskId:int}/SubTasks")]
+        [HttpGet]
+        public async Task<IEnumerable<SubTasks>> GetSubTasks(int mainTaskId)
         {
-            return db.SubTasks;
+            return await _dataService.GetSubTasks(mainTaskId);
         }
 
-        // GET: api/SubTasks/5
-        [ResponseType(typeof(SubTasks))]
-        public async Task<IHttpActionResult> GetSubTasks(int id)
-        {
-            SubTasks subTasks = await db.SubTasks.FindAsync(id);
-            if (subTasks == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(subTasks);
-        }
-
-        // PUT: api/SubTasks/5
-        [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutSubTasks(int id, SubTasks subTasks)
+        [Route("api/tasks/{MaintaskId:int}/addSubTask", Name = "AddSubTask")]
+        [HttpPost]
+        public async Task<IHttpActionResult> AddSubTask(int MaintaskId, SubTasks task)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
-            if (id != subTasks.SubTaskId)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(subTasks).State = EntityState.Modified;
-
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!SubTasksExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
+            var response = await _dataService.AddSubTask(MaintaskId, task);
+            return CreatedAtRoute("AddSubTask", new { V = response.Id = task.SubTaskId }, response);
         }
 
-        // POST: api/SubTasks
-        [ResponseType(typeof(SubTasks))]
-        public async Task<IHttpActionResult> PostSubTasks(SubTasks subTasks)
+        [Route("api/tasks/{mainTaskId:int}/editTask", Name = "editSubTask")]
+        [HttpPut]
+        public async Task<IHttpActionResult> EditSubTask(int subTaskId, SubTasks task)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
-            db.SubTasks.Add(subTasks);
-            await db.SaveChangesAsync();
-
-            return CreatedAtRoute("DefaultApi", new { id = subTasks.SubTaskId }, subTasks);
+            var response = await _dataService.EditSubTask(subTaskId, task);
+            return CreatedAtRoute("editSubTask", new { V = response.Id = task.SubTaskId }, response);
         }
 
-        // DELETE: api/SubTasks/5
-        [ResponseType(typeof(SubTasks))]
-        public async Task<IHttpActionResult> DeleteSubTasks(int id)
+        [Route("api/tasks/deleteSubTask/{subTaskId:int}")]
+        [HttpDelete]
+        public async Task<IHttpActionResult> DeleteSubTask(int subTaskId)
         {
-            SubTasks subTasks = await db.SubTasks.FindAsync(id);
-            if (subTasks == null)
+            var response = await _dataService.DeleteSubTask(subTaskId);
+            if (response.Status == 200)
+            {
+                return Ok(response);
+            }
+            else if (response.Status == 404)
             {
                 return NotFound();
             }
-
-            db.SubTasks.Remove(subTasks);
-            await db.SaveChangesAsync();
-
-            return Ok(subTasks);
+            return BadRequest(response.Message);
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
+            _dataService.Dispose(disposing);
         }
 
-        private bool SubTasksExists(int id)
-        {
-            return db.SubTasks.Count(e => e.SubTaskId == id) > 0;
-        }
     }
 }

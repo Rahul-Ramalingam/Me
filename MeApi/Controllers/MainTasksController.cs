@@ -19,7 +19,7 @@ namespace MeApi.Controllers
     {
         private DataServices _dataService = new DataServices();
 
-        [Route("api/tasks/MainTasks/{userId:int}")]
+        [Route("api/tasks/{userId:int}/MainTasks")]
         [HttpGet]
         public async Task<IEnumerable<MainTasks>> GetMainTasks(int userId)
         {
