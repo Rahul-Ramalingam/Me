@@ -17,7 +17,6 @@ namespace MeApi.Controllers
 {
     public class UsersController : ApiController
     {
-        private MeApiContext db = new MeApiContext();
         private DataServices _dataService = new DataServices();
 
         [Route("api/allUsers")]
@@ -105,16 +104,7 @@ namespace MeApi.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
-        private bool UsersExists(int id)
-        {
-            return db.Users.Count(e => e.UserId == id) > 0;
+            _dataService.Dispose(disposing);
         }
     }
 }
