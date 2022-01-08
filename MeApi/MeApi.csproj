@@ -168,6 +168,7 @@
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="DataService\DataServices.cs" />
     <Compile Include="Data\MeApiContext.cs" />
+    <Compile Include="DTO\MainTaskWithSubTaskOut.cs" />
     <Compile Include="DTO\ResponseBody.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

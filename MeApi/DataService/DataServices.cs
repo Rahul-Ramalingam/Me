@@ -255,7 +255,7 @@ namespace MeApi.DataService
         {
             try
             {
-                if (MainTaskId == task.MainTaskId && UserExists(MainTaskId))
+                if (MainTaskId == task.MainTaskId && MainTasksExists(task.MainTaskId))
                 {
                     db.SubTasks.Add(task);
                     await db.SaveChangesAsync();
@@ -361,7 +361,34 @@ namespace MeApi.DataService
             }
         }
 
+        public async Task<IEnumerable<MainTaskWithSubTaskOut>> GetAllTasksOrientedWithMainTask(int mainTaskId)
+        {
+            var result = db.MainTasks.Select(st => st).Where(mt => mt.MainTaskId == mainTaskId).ToList()
+                .Select(r => new MainTaskWithSubTaskOut()
+                {
+                    MainTaskId = r.MainTaskId,
+                    MainTaskDescription = r.MainTaskDescription,
+                    MainTaskName = r.MainTaskName,
+                    StartTime = r.StartTime,
+                    EndTime = r.EndTime,
+                    SubTasks = SubTasksBuilder(r.MainTaskId)
+                });
+            return result;
+        }
 
+        private List<SubTasksDto> SubTasksBuilder(int mainTaskId)
+        {
+            var subTasks = db.SubTasks.Where(st => st.MainTaskId == mainTaskId).ToList()
+                .Select(r => new SubTasksDto()
+                {
+                    SubTaskId = r.SubTaskId,
+                    SubTaskName = r.SubTaskName,
+                    SubTaskDescription = r.SubTaskDescription,
+                    StartTime = r.StartTime,
+                    EndTime = r.EndTime
+                }).ToList();
+            return subTasks;
+        }
         private bool SubTasksExists(int id)
         {
             return db.SubTasks.Count(e => e.SubTaskId == id) > 0;

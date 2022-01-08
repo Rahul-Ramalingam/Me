@@ -66,6 +66,14 @@ namespace MeApi.Controllers
             return BadRequest(response.Message);
         }
 
+
+        [Route("api/tasks/getTasks/{mainTaskId:int}")]
+        [HttpGet]
+        public async Task<IHttpActionResult> GetAllTasksOrientedWithMainTask(int mainTaskId)
+        {
+            var response = await _dataService.GetAllTasksOrientedWithMainTask(mainTaskId);
+            return Ok(response);
+        }
         protected override void Dispose(bool disposing)
         {
             _dataService.Dispose(disposing);
